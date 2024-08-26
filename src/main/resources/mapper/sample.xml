@@ -7,6 +7,10 @@
         select *
         from sample
     </select>
+    <select id="selectPageAllCount" resultType="_int">
+        select count(*)
+        from sample
+    </select>
     <select id="selectPageAll" resultType="Sample">
         select *
         from sample
@@ -16,6 +20,13 @@
         from sample
         <where>
         <if test="searchCondition.content != null">AND content LIKE '%' || #{searchCondition.content} || '%'</if>
+        </where>
+    </select>
+    <select id="selectPageConditionCount" resultType="_int">
+        select count(*)
+        from sample
+        <where>
+            <if test="searchCondition.content != null">AND content LIKE '%' || #{searchCondition.content} || '%'</if>
         </where>
     </select>
 </mapper>

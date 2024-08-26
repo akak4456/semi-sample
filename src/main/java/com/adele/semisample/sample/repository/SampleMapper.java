@@ -14,4 +14,8 @@ public interface SampleMapper {
     List<Sample> selectPageAll(int currentPage, RowBounds rowBounds);
 
     List<Sample> selectPageCondition(int currentPage, SampleSearchCondition searchCondition, RowBounds rowBounds);
+
+    int selectPageAllCount();
+
+    int selectPageConditionCount(SampleSearchCondition searchCondition);
 }

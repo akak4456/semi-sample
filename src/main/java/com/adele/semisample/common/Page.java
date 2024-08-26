@@ -54,7 +54,7 @@ public class Page<T, S> {
         else nextPage = endNavi + 1;
     }
 
-    public static <T> Page<T, Void> of(int currentPage, BiFunction<Integer, RowBounds,List<T>> function) {
+    public static <T> Page<T, Void> of(int currentPage, int totalCount,BiFunction<Integer, RowBounds,List<T>> function) {
         int boardLimit = 10;
         int naviLimit = 10;
         int offset = (currentPage - 1) * boardLimit;
@@ -62,12 +62,12 @@ public class Page<T, S> {
         List<T> data = function.apply(
                 currentPage, rowBounds
         );
-        return new Page<>(currentPage, data.size(),function.apply(
+        return new Page<>(currentPage, totalCount,function.apply(
                 currentPage, rowBounds
         ), boardLimit, naviLimit);
     }
 
-    public static <T, S> Page<T, S> of(int currentPage, S searchCondition, TriFunction<Integer,S,RowBounds, List<T>> function) {
+    public static <T, S> Page<T, S> of(int currentPage, int totalCount,S searchCondition, TriFunction<Integer,S,RowBounds, List<T>> function) {
         int boardLimit = 10;
         int naviLimit = 10;
         int offset = (currentPage - 1) * boardLimit;
@@ -75,7 +75,7 @@ public class Page<T, S> {
         List<T> data = function.apply(
                 currentPage, searchCondition, rowBounds
         );
-        return new Page<>(currentPage, data.size(), data,searchCondition, boardLimit, naviLimit);
+        return new Page<>(currentPage, totalCount, data,searchCondition, boardLimit, naviLimit);
     }
 
 }

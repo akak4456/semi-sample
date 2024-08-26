@@ -25,11 +25,11 @@ public class SampleServiceImpl implements SampleService {
 
     @Override
     public Page<Sample, Void> selectPage(int currentPage) {
-        return Page.of(currentPage, sampleMapper::selectPageAll);
+        return Page.of(currentPage, sampleMapper.selectPageAllCount(),sampleMapper::selectPageAll);
     }
 
     @Override
     public Page<Sample, SampleSearchCondition> selectPageSearch(int currentPage, SampleSearchCondition searchCondition) {
-        return Page.of(currentPage, searchCondition, sampleMapper::selectPageCondition);
+        return Page.of(currentPage, sampleMapper.selectPageConditionCount(searchCondition), searchCondition, sampleMapper::selectPageCondition);
     }
 }
