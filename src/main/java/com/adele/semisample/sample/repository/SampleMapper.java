@@ -1,6 +1,7 @@
 package com.adele.semisample.sample.repository;
 
 import com.adele.semisample.sample.domain.Sample;
+import com.adele.semisample.sample.domain.SampleFile;
 import com.adele.semisample.sample.dto.SampleSearchCondition;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
@@ -18,4 +19,6 @@ public interface SampleMapper {
     int selectPageAllCount();
 
     int selectPageConditionCount(SampleSearchCondition searchCondition);
+
+    int insertSampleFile(SampleFile sampleFile);
 }

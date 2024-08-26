@@ -60,7 +60,7 @@ public class GlobalExceptionControllerHandler {
             final ErrorResponse response = ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR);
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        model.addAttribute(ERROR_PAGE_MSG, e.getMessage());
+        model.addAttribute(ERROR_PAGE_MSG, "심각한 서버 에러 발생 반드시 조치하세요");
         return ERROR_PAGE;
     }
 

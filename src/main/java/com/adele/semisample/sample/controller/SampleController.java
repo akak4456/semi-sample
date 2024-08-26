@@ -12,6 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -51,10 +55,12 @@ public class SampleController {
     }
 
     @PostMapping("/writePage")
-    public String writePage(@ModelAttribute @Valid SampleWriteDTO dto) {
-        if("error".equals(dto.getContent())){
-            throw new RuntimeException("exception occur");
+    public String writePage(@ModelAttribute @Valid SampleWriteDTO dto, @RequestParam("uploadFile") List<MultipartFile> uploadFiles) throws IOException {
+        log.info("size: {}", uploadFiles.size());
+        for(MultipartFile file : uploadFiles){
+            log.info("file: {}", file.getOriginalFilename());
         }
+        sampleService.insertSample(dto, uploadFiles);
         return "sample/home";
     }
 }

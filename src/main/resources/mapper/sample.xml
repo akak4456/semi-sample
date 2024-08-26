@@ -29,4 +29,8 @@
             <if test="searchCondition.content != null">AND content LIKE '%' || #{searchCondition.content} || '%'</if>
         </where>
     </select>
+    <insert id="insertSampleFile">
+        insert into SAMPLE_FILE
+        values (SEQ_SAMPLE_FILE.NEXTVAL, #{filePath}, #{fileName}, #{fileRename}, #{sampleNo})
+    </insert>
 </mapper>

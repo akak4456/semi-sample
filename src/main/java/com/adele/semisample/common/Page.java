@@ -59,9 +59,6 @@ public class Page<T, S> {
         int naviLimit = 10;
         int offset = (currentPage - 1) * boardLimit;
         RowBounds rowBounds = new RowBounds(offset, boardLimit);
-        List<T> data = function.apply(
-                currentPage, rowBounds
-        );
         return new Page<>(currentPage, totalCount,function.apply(
                 currentPage, rowBounds
         ), boardLimit, naviLimit);
