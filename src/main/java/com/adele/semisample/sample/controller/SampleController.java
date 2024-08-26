@@ -1,15 +1,17 @@
 package com.adele.semisample.sample.controller;
 
+import com.adele.semisample.common.exception.BusinessException;
+import com.adele.semisample.common.exception.ErrorCode;
 import com.adele.semisample.sample.dto.SampleSearchCondition;
+import com.adele.semisample.sample.dto.SampleWriteDTO;
 import com.adele.semisample.sample.service.SampleService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,7 +21,8 @@ public class SampleController {
     @GetMapping("/")
     public String sampleAll(Model model) {
         model.addAttribute("samples", sampleService.selectAll());
-        return "sample/home";
+        throw new BusinessException(ErrorCode.INVALID_INPUT_VALUE);
+        // return "sample/home";
     }
     @GetMapping("/page/{currentPage}")
     public String samplePage(@PathVariable int currentPage, Model model) {
@@ -31,5 +34,27 @@ public class SampleController {
     public String samplePageSearch(@PathVariable int currentPage, @ModelAttribute SampleSearchCondition searchCondition, Model model) {
         model.addAttribute("samples", sampleService.selectPageSearch(currentPage, searchCondition));
         return "sample/page";
+    }
+
+    @PostMapping("/write")
+    @ResponseBody
+    public ResponseEntity<String> write(@RequestBody @Valid SampleWriteDTO dto) {
+        if("error".equals(dto.getContent())){
+            throw new RuntimeException();
+        }
+        return ResponseEntity.ok("ok");
+    }
+
+    @GetMapping("/writePage")
+    public String writePage() {
+        return "sample/write";
+    }
+
+    @PostMapping("/writePage")
+    public String writePage(@ModelAttribute @Valid SampleWriteDTO dto) {
+        if("error".equals(dto.getContent())){
+            throw new RuntimeException("exception occur");
+        }
+        return "sample/home";
     }
 }
