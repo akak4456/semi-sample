@@ -24,7 +24,7 @@ public class Page<T, S> {
     private int prevPage;
     private int nextPage;
 
-    public Page(int currentPage, int totalCount, List<T> data, int boardLimit, int naviLimit) {
+    private Page(int currentPage, int totalCount, List<T> data, int boardLimit, int naviLimit) {
         this.currentPage = currentPage;
         this.totalCount = totalCount;
         this.data = data;
